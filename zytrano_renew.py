@@ -418,25 +418,26 @@ async def renew_server(tab, server_id: str) -> bool:
     log.info(f"handleServerRenew 调用结果: {result}")
     await asyncio.sleep(3)
 
-    # 如果弹出确认对话框，点确认
+    # 如果弹出确认对话框，点确认（按优先级尝试各种按钮文字）
+    confirm_texts = ["Yes, renew it!", "Yes, renew it", "Confirm", "OK"]
+    clicked = False
     for _ in range(3):
-        try:
-            confirm_btn = await tab.find(
-                tag_name="button", text="Confirm", timeout=3
-            )
-            await confirm_btn.click()
-            log.info("已点击 Confirm")
-            await asyncio.sleep(2)
+        if clicked:
             break
-        except Exception:
-            pass
-        try:
-            ok_btn = await tab.find(tag_name="button", text="OK", timeout=2)
-            await ok_btn.click()
-            await asyncio.sleep(2)
-            break
-        except Exception:
-            pass
+        for btn_text in confirm_texts:
+            try:
+                btn = await tab.find(
+                    tag_name="button", text=btn_text, timeout=3
+                )
+                await btn.click()
+                log.info(f"已点击确认按钮: {btn_text}")
+                await asyncio.sleep(2)
+                clicked = True
+                break
+            except Exception:
+                pass
+        if not clicked:
+            await asyncio.sleep(1)
 
     await take_screenshot(tab, f"04_after_renew_{server_id[:8]}")
 
