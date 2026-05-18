@@ -124,6 +124,8 @@ Suspended in: 14 days, 0 hours, 0 minutes
 | `chromium-browser` | 无头浏览器 |
 | `xvfb` | 虚拟显示服务器（供 Chromium 渲染） |
 
+
+感谢代码原作者：https://github.com/ssd000012345/zytrano_renew
 ---
 
 ## 注意事项
