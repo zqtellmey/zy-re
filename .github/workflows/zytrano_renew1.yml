@@ -1,8 +1,8 @@
 name: Zytrano Auto Renew
 
 on:
-  schedule:
-    - cron: '0 2 */2 * *'  # 每两天 UTC 02:00 运行（北京时间 10:00）
+#  schedule:
+#    - cron: '0 2 */2 * *'  # 每两天 UTC 02:00 运行（北京时间 10:00）
   workflow_dispatch:
 
 jobs:
